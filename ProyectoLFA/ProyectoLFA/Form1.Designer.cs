@@ -29,13 +29,44 @@ namespace ProyectoLFA
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.BTNUpload = new System.Windows.Forms.Button();
+            this.RTBGrammar = new System.Windows.Forms.RichTextBox();
+            this.SuspendLayout();
+            // 
+            // BTNUpload
+            // 
+            this.BTNUpload.Location = new System.Drawing.Point(12, 55);
+            this.BTNUpload.Name = "BTNUpload";
+            this.BTNUpload.Size = new System.Drawing.Size(109, 23);
+            this.BTNUpload.TabIndex = 0;
+            this.BTNUpload.Text = "Cargar Gramática";
+            this.BTNUpload.UseVisualStyleBackColor = true;
+            // 
+            // RTBGrammar
+            // 
+            this.RTBGrammar.Location = new System.Drawing.Point(12, 84);
+            this.RTBGrammar.Name = "RTBGrammar";
+            this.RTBGrammar.Size = new System.Drawing.Size(370, 241);
+            this.RTBGrammar.TabIndex = 1;
+            this.RTBGrammar.Text = "";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(394, 372);
+            this.Controls.Add(this.RTBGrammar);
+            this.Controls.Add(this.BTNUpload);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button BTNUpload;
+        private System.Windows.Forms.RichTextBox RTBGrammar;
     }
 }
 
