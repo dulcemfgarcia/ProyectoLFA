@@ -26,5 +26,10 @@ namespace ProyectoLFA
         {
 
         }
+
+        private void BTNUpload_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

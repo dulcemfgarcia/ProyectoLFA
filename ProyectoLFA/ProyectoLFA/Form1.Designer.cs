@@ -46,6 +46,7 @@ namespace ProyectoLFA
             this.BTNUpload.TabIndex = 0;
             this.BTNUpload.Text = "Cargar Gramática";
             this.BTNUpload.UseVisualStyleBackColor = false;
+            this.BTNUpload.Click += new System.EventHandler(this.BTNUpload_Click);
             // 
             // RTBGrammar
             // 
