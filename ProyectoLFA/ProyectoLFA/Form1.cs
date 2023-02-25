@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ProyectoLFA.Utilities.DFA_Procedures;
+using Action = ProyectoLFA.Utilities.DFA_Procedures.Action;
 namespace ProyectoLFA
 {
     public partial class Form1 : Form
@@ -56,9 +57,9 @@ namespace ProyectoLFA
                 {
 
                     int linea = 0;
-              // string text = File.ReadAllText(file);
-                //TResult.Text = Utilities.AnalizarGramatica.analizarAchivoGramatica(text, ref linea);
-                // RTBGrammar.Text = text;
+              string text = File.ReadAllText(file);
+                TResult.Text = Utilities.AnalizarGramatica.analizarAchivoGramatica(text, ref linea);
+                 RTBGrammar.Text = text;
 
                 if (TResult.Text.Contains("Correcto"))
                     {
