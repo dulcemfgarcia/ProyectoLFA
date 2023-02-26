@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,13 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ProyectoLFA.Utilities.DFA_Procedures;
-using Action = ProyectoLFA.Utilities.DFA_Procedures.Action;
+using ProyectoLFA.Classes;
 namespace ProyectoLFA
 {
-    public partial class Form1 : Form
+    public partial class GrammarAnalyzer : Form
     {
-        public Form1()
+        public GrammarAnalyzer()
         {
             InitializeComponent();
         }
@@ -30,7 +30,6 @@ namespace ProyectoLFA
 
         private void BTNUpload_Click(object sender, EventArgs e)
         {
-
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             DialogResult result = openFileDialog1.ShowDialog();
 
@@ -45,42 +44,38 @@ namespace ProyectoLFA
         }
             private void AnalizarArchivo(string file)
             {
-               
-               
-                pathTextBox.Text = file;
-
-                //Return to default color
+                TXTPath.Text = file;
                 RTBGrammar.Select(0, RTBGrammar.Lines.Length);
-            RTBGrammar.SelectionColor = Color.Black;
+                RTBGrammar.SelectionColor = Color.Black;
 
                 try
                 {
-
-                    int linea = 0;
-              string text = File.ReadAllText(file);
-                TResult.Text = Utilities.AnalizarGramatica.analizarAchivoGramatica(text, ref linea);
-                 RTBGrammar.Text = text;
+                    int line1 = 0;
+                    string text = File.ReadAllText(file);
+                    //Send line
+                    TResult.Text = Classes.GrammarFormat.AnalyseFile(text, ref line1);
+                    RTBGrammar.Text = text;
 
                 if (TResult.Text.Contains("Correcto"))
                     {
-                    TResult.BackColor = Color.LightGray;
-                    TResult.ForeColor = Color.Green;
+                        TResult.BackColor = Color.LightGray;
+                        TResult.ForeColor = Color.Green;
 
                     }
                     else
                     {
-                    TResult.BackColor = Color.LightGray;
-                    TResult.ForeColor = Color.Crimson;
+                        TResult.BackColor = Color.LightGray;
+                        TResult.ForeColor = Color.Crimson;
 
                         //Ubicacion del error
                         int lineCounter = 0;
 
                         foreach (string line in RTBGrammar.Lines)
                         {
-                            if (linea - 1 == lineCounter)
+                            if (line1 - 1 == lineCounter)
                             {
-                            RTBGrammar.Select(RTBGrammar.GetFirstCharIndexFromLine(lineCounter), line.Length);
-                            RTBGrammar.SelectionColor = Color.Red;
+                                RTBGrammar.Select(RTBGrammar.GetFirstCharIndexFromLine(lineCounter), line.Length);
+                                RTBGrammar.SelectionColor = Color.Red;
                             }
                             lineCounter++;
                         }
@@ -90,12 +85,9 @@ namespace ProyectoLFA
                 catch (Exception ex)
                 {
 
-                TResult.BackColor = Color.LightGray;
-                TResult.ForeColor = Color.Crimson;
-
+                    TResult.BackColor = Color.LightGray;
+                    TResult.ForeColor = Color.Crimson;
                     TResult.Text = @"Error en TOKENS";
-                    
-
                     MessageBox.Show(ex.Message);
 
                     //Show in red all lines in tokens
@@ -105,8 +97,8 @@ namespace ProyectoLFA
                     {
                         if (line.Contains("TOKEN"))
                         {
-                        RTBGrammar.Select(RTBGrammar.GetFirstCharIndexFromLine(lineCounter), line.Length);
-                        RTBGrammar.SelectionColor = Color.Red;
+                            RTBGrammar.Select(RTBGrammar.GetFirstCharIndexFromLine(lineCounter), line.Length);
+                            RTBGrammar.SelectionColor = Color.Red;
                         }
                         lineCounter++;
                     }

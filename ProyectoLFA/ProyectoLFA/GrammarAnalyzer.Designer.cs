@@ -1,7 +1,7 @@
 ﻿
 namespace ProyectoLFA
 {
-    partial class Form1
+    partial class GrammarAnalyzer
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@ namespace ProyectoLFA
             this.RTBGrammar = new System.Windows.Forms.RichTextBox();
             this.TResult = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.pathTextBox = new System.Windows.Forms.TextBox();
+            this.TXTPath = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // BTNUpload
@@ -73,31 +73,31 @@ namespace ProyectoLFA
             this.label1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(81, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 19);
+            this.label1.Size = new System.Drawing.Size(83, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Resultado:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // pathTextBox
+            // TXTPath
             // 
-            this.pathTextBox.Location = new System.Drawing.Point(181, 33);
-            this.pathTextBox.Name = "pathTextBox";
-            this.pathTextBox.Size = new System.Drawing.Size(308, 22);
-            this.pathTextBox.TabIndex = 4;
+            this.TXTPath.Location = new System.Drawing.Point(181, 33);
+            this.TXTPath.Name = "TXTPath";
+            this.TXTPath.Size = new System.Drawing.Size(308, 22);
+            this.TXTPath.TabIndex = 4;
             // 
-            // Form1
+            // GrammarAnalyzer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(525, 458);
-            this.Controls.Add(this.pathTextBox);
+            this.Controls.Add(this.TXTPath);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.TResult);
             this.Controls.Add(this.RTBGrammar);
             this.Controls.Add(this.BTNUpload);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Form1";
+            this.Name = "GrammarAnalyzer";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -111,7 +111,7 @@ namespace ProyectoLFA
         private System.Windows.Forms.RichTextBox RTBGrammar;
         private System.Windows.Forms.TextBox TResult;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox pathTextBox;
+        private System.Windows.Forms.TextBox TXTPath;
     }
 }
 
