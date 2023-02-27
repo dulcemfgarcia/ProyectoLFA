@@ -1,7 +1,7 @@
 ﻿
 namespace ProyectoLFA
 {
-    partial class Form1
+    partial class FileAnalyser
     {
         /// <summary>
         /// Required designer variable.

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoLFA.Classes
 {
-    //Gets, save and build a simple regular expression
+    //Gets, save and build a simple regular expression [2nd fase]
     class RegularExpression : CharSET
     {
         //Constructor
@@ -17,24 +17,7 @@ namespace ProyectoLFA.Classes
 
         private string simplifyExpression(string expression)
         {
-            expression = expression.Replace(MinusLetter, MinusLetterSimple);
-            expression = expression.Replace(MayusLetter, MayusLetterSimple);
-            expression = expression.Replace(NumsLetter, NumsLetterSimple);
-            expression = expression.Replace(SymbolLetter, SymbolLetterSimple);
-
             return expression;
-        }
-        public string ValidateString(string text)
-        {
-
-            string message = "";
-
-            message = message.Replace(MayusLetterSimple, MayusLetter);
-            message = message.Replace(MinusLetterSimple, MinusLetter);
-            message = message.Replace(NumsLetterSimple, NumsLetter);
-            message = message.Replace(SymbolLetterSimple, SymbolLetter);
-
-            return message;
         }
     }
 }

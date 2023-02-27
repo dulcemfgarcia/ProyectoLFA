@@ -20,9 +20,9 @@ namespace ProyectoLFA
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form1 frm1 = new Form1();
+            FileAnalyser frm1 = new FileAnalyser();
 
-    frm1.Show();
+            frm1.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)

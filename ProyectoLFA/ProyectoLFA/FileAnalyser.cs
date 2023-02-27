@@ -11,9 +11,9 @@ using System.Windows.Forms;
 using ProyectoLFA.Classes;
 namespace ProyectoLFA
 {
-    public partial class Form1 : Form
+    public partial class FileAnalyser : Form
     {
-        public Form1()
+        public FileAnalyser()
         {
             InitializeComponent();
         }

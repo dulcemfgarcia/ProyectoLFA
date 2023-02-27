@@ -10,20 +10,5 @@ namespace ProyectoLFA.Classes
     public class CharSET
     {
         public string epsilon = "ε";
-
-        public string SymbolLetter = "[Simbolo]";
-        public string SymbolLetterSimple = "£";
-
-        public string MinusLetter = "[a-z]";
-        public string MinusLetterSimple = "Ø";
-
-        public string MayusLetter = "[A-Z]";
-        public string MayusLetterSimple = "¢";
-
-        public string NumsLetter = "[0-9]";
-        public string NumsLetterSimple = "¥";
-
-        
-
     }
 }
