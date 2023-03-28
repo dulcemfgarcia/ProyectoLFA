@@ -19,5 +19,30 @@ namespace ProyectoLFA.Classes
         {
             return expression;
         }
+
+        private string replaceAbreviations(string expression)
+        {
+            expression = expression.Replace(AbrevLetrasMayus, MayusChar);
+            expression = expression.Replace(AbrevLetrasMinus, MinusChar);
+            expression = expression.Replace(AbrevNumbers, Numbers);
+            expression = expression.Replace(AbrevSymbols, Symbols);
+
+            return expression;
+        }
+
+        public string ValidateString(string text)
+        {
+
+            string message = "";
+            int characters = 0;
+
+
+            message = message.Replace(MayusChar, AbrevLetrasMayus);
+            message = message.Replace(MinusChar, AbrevLetrasMinus);
+            message = message.Replace(Numbers, AbrevNumbers);
+            message = message.Replace(Symbols, AbrevSymbols);
+
+            return message;
+        }
     }
 }
