@@ -7,7 +7,7 @@ using Proyecto_LFA.Utilities.Clases;
 
 namespace Proyecto_LFA.Utilities
 {
-    public class FollowTable:ExpressionCharacters
+    public class FollowTable:CharSET
     {
         //Dictionary with posible next positions
         public List<Follow> nodes = new List<Follow>(); 
