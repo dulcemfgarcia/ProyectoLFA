@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_LFYA.Utilities
+namespace Proyecto_LFA.Utilities
 {
     public class Transition
     {
