@@ -55,6 +55,13 @@
     <Compile Include="Classes\CharSET.cs" />
     <Compile Include="Classes\GrammarFormat.cs" />
     <Compile Include="Classes\Token.cs" />
+    <Compile Include="Classes\Transition.cs" />
+    <None Include="Form3">
+      <SubType>Form</SubType>
+    </None>
+    <Compile Include="FileAnalyser - Copia.Designer.cs">
+      <DependentUpon>Form3</DependentUpon>
+    </Compile>
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +76,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FileAnalyser - Copia.resx">
+      <DependentUpon>Form3</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
