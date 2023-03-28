@@ -46,11 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Action.cs" />
     <Compile Include="Classes\ET.cs" />
+    <Compile Include="Classes\Follow.cs" />
+    <Compile Include="Classes\FollowTable.cs" />
     <Compile Include="Classes\Node.cs" />
     <Compile Include="Classes\RegularExpression.cs" />
     <Compile Include="Classes\CharSET.cs" />
     <Compile Include="Classes\GrammarFormat.cs" />
+    <Compile Include="Classes\Token.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
