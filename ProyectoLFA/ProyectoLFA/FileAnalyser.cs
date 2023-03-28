@@ -127,6 +127,14 @@ namespace ProyectoLFA
         {
             this.Close();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FileAnalyser frm1 = new FileAnalyser();
+
+            frm1.Show();
+        }
     }
     }
 
