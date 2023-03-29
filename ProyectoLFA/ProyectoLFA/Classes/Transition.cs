@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Proyecto_LFA.Utilities
+namespace ProyectoLFA.Classes
 {
     public class Transition
     {
@@ -27,7 +27,7 @@ namespace Proyecto_LFA.Utilities
         {
             symbol = simbolo;
             nodes = nodos;
-            isAcceptanceStatus = nodos.Contains(ExpressionCharacters.EndCharacter.ToCharArray()[0]); 
+            isAcceptanceStatus = nodos.Contains(CharSET.EndCharacter.ToCharArray()[0]); 
         }
     }
 }

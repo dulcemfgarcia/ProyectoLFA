@@ -59,6 +59,7 @@
     <None Include="Form3">
       <SubType>Form</SubType>
     </None>
+    <Compile Include="Classes\TransitionT.cs" />
     <Compile Include="FileAnalyser - Copia.Designer.cs">
       <DependentUpon>Form3</DependentUpon>
     </Compile>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Proyecto_LFA.Utilities.Clases
+namespace ProyectoLFA.Classes
 {
     public class Action
     {

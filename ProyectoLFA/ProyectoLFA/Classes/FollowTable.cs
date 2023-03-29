@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Proyecto_LFA.Utilities.Clases;
+using ProyectoLFA.Classes;
 
-namespace Proyecto_LFA.Utilities
+namespace ProyectoLFA.Classes
 {
     public class FollowTable:CharSET
     {
@@ -31,15 +31,15 @@ namespace Proyecto_LFA.Utilities
         {
             if (root.isLeaf())
             {
-                nodes.Add(new Follow(root.element));
+                nodes.Add(new Follow(root.expresion));
             }
             else
             {
-                getEnumeration(root.left);
+                getEnumeration(root.Left);
 
-                if (root.right != null)
+                if (root.Right != null)
                 {
-                    getEnumeration(root.right);
+                    getEnumeration(root.Right);
                 }
             }
         }
@@ -48,24 +48,24 @@ namespace Proyecto_LFA.Utilities
         {
             if (node != null)
             {
-                getFollowPos(node.left);
-                getFollowPos(node.right);
+                getFollowPos(node.Left);
+                getFollowPos(node.Right);
 
                 if (!node.isLeaf())
                 {
 
-                    if (node.element == Concatenation && node.left != null && node.right != null)
+                    if (node.expresion == Concatenation && node.Left != null && node.Right != null)
                     {
                         //Being "i" a position in lastPos(c1) 
                         //Then all positions in firstPos(c2) are in followPos(i)
 
-                        foreach (var item in node.left.lastPos)
+                        foreach (var item in node.Left.lastPos)
                         {
-                            nodes[item].follows = nodes[item].follows.Concat(node.right.firstPos).ToList(); 
+                            nodes[item].follows = nodes[item].follows.Concat(node.Right.firstPos).ToList(); 
                         }
 
                     }
-                    else if (node.element == KleenePlus || node.element == KleeneStar)
+                    else if (node.expresion == Plus || node.expresion == Star)
                     {
                         //Being "n" this node and "i" a position in lastPos(n) 
                         //Then all positions in firstPos(n) are in followPos(i)
