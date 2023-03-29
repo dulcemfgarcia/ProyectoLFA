@@ -14,52 +14,16 @@ namespace ProyectoLFA.Classes
 
         public Dictionary<string, string[]> sets = new Dictionary<string, string[]>();
         public List<Token> tokens = new List<Token>();
-        public List<Action> actions = new List<Action>();
-        public Dictionary<int, string> actionReference = new Dictionary<int, string>();
         private readonly Dictionary<int, string> leafNodeValues = new Dictionary<int, string>();
         public ET()
         {
             root = null;
         }
 
-        public ET(string expression)
-        {
-            this.expression = expression;
-
-            checkForEndCharacter(ref expression);
-
-            //Shunting yard algorithm to generate tree
-            Queue<string> Tokens = getTokensFromExpression(expression);
-            ShuntingYard(Tokens);
-
-            setNumberInNodes();
-            setNullableNodes();
-            setFirstPos();
-            setLastPos();
-        }
-
-        public ET(string expression, Dictionary<string, string[]> sets)
+        public ET(string expression, Dictionary<string, string[]> sets, List<int> tokenNumbers)
         {
             this.sets = sets;
             this.expression = expression;
-
-            checkForEndCharacter(ref expression);
-            Queue<string> Tokens = getTokensFromGrammarExpression(expression, sets);
-            ShuntingYard(Tokens);
-
-            setNumberInNodes();
-            setNullableNodes();
-            setFirstPos();
-            setLastPos();
-        }
-
-        public ET(string expression, Dictionary<string, string[]> sets, List<Action> actions, List<int> tokenNumbers, Dictionary<int, string> reference)
-        {
-            this.sets = sets;
-            this.expression = expression;
-
-            this.actions = actions;
-            this.actionReference = reference;
 
             checkForEndCharacter(ref expression);
             Queue<string> Tokens = getTokensFromGrammarExpression(expression, sets);
@@ -675,6 +639,7 @@ namespace ProyectoLFA.Classes
                 getValuesOfNodes(i.Right, ref cells, ref j);
             }
 
+            //Symbol, First, Last, Nullable
             cells.Add(new[]
             {i.expresion, string.Join( ",", i.firstPos),
                 string.Join( ",", i.lastPos), i.nullable.ToString()});
@@ -687,14 +652,14 @@ namespace ProyectoLFA.Classes
         }
         private void setTokensListOfValues(Node i, List<int> TokenNumbers, ref int actualToken)
         {
-            if (actualToken <= TokenNumbers.Count - 1)
+            if (actualToken <= TokenNumbers.Count - 1) //If it's not the last token
             {
                 if (i.expresion == Alternation)
                 {
                     //Right
                     tokens.Add(new Token(TokenNumbers[TokenNumbers.Count - 1 - actualToken],
-                        getCharValuesOfNode(i.Right.firstPos),
-                        getCharValuesOfNode(i.Right.lastPos)));
+                    getCharValuesOfNode(i.Right.firstPos),
+                    getCharValuesOfNode(i.Right.lastPos)));
 
                     actualToken++;
 

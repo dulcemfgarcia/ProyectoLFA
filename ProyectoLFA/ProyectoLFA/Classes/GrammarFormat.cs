@@ -169,7 +169,6 @@ namespace ProyectoLFA.Classes
             List<int> tokensList = new List<int>();
 
             string token = ""; //Each token will be concatenated
-            string actions = ""; //All actions are concatenated
 
             text = text.Replace('\r', ' ');
             text = text.Replace('\t', ' ');
@@ -181,7 +180,7 @@ namespace ProyectoLFA.Classes
             bool inicio = true;
             bool setActive = false;
             bool tokenActive = false;
-            bool actionActive = false;
+            bool actionActive = true;
 
             string[] lineas = text.Split('\n');
 
@@ -230,34 +229,16 @@ namespace ProyectoLFA.Classes
                             AddNewTOKEN(ref tokensList, ref token, item);
                         }
                     }
-                    else if (actionActive)
-                    {
-                        if (item.Contains("ERROR") && item.Contains("="))
-                        {
-                            AddActions(actions, ref actionsList);
-                            break;//Exit procedure
-                        }
-                        else
-                        {
-                            actions += item;
-                        }
-                    }
                 }
             }
 
             //Check for repeated token numbers
             CheckForRepeatedTokens(tokensList, actionsList);
 
-            //Reset references
-            Dictionary<int, string> references = actionReference;
-            actionReference = new Dictionary<int, string>();
-
-            CheckReferences(references, actionsList);
-
             //Create tree
             if (token != "")
             {
-                return new ET(token, sets, actionsList, tokensList, references);
+                return new ET(token, sets, tokensList);
             }
             else
             {
@@ -265,45 +246,7 @@ namespace ProyectoLFA.Classes
             }
         }
 
-        private static bool areParenthesisPaired(string expression)
-        {
-            if (expression.Contains('(') || expression.Contains(')'))
-            {
-                int Open = 0;
-                int Close = 0;
-
-                expression = expression.Replace(" ", "");
-
-                for (int i = 0; i < expression.Length; i++)
-                {
-                    if (expression[i] == '\'')
-                    {
-                        i += 2;
-                    }
-                    else if (expression[i] == '(')
-                    {
-                        Open++;
-                    }
-                    else if (expression[i] == ')')
-                    {
-                        Close++;
-                    }
-                }
-
-                if (Open == Close)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private static void CheckForRepeatedTokens(List<int> tokens, List<Action> actionsList)
+        private static void CheckForRepeatedTokens(List<int> tokens, List<Action> actionsList) //Just validate that the tokenNumber, an identifier to each token read, it's not repeated
         {
             List<int> repeated = new List<int>();
 
@@ -322,28 +265,6 @@ namespace ProyectoLFA.Classes
                 }
             }
             //If it ends, it is correct
-        }
-
-        private static void CheckReferences(Dictionary<int, string> references, List<Action> actionsList)
-        {
-            foreach (var item in references.Values)
-            {
-                bool notFound = true;
-
-                foreach (var action in actionsList)
-                {
-                    if (action.ActionName == item)
-                    {
-                        notFound = false;
-                        break;
-                    }
-                }
-
-                if (notFound)
-                {
-                    throw new Exception($"No existe el ACTION {item}");
-                }
-            }
         }
 
         //SET reader
@@ -432,7 +353,7 @@ namespace ProyectoLFA.Classes
             string[] line = SplitToken(text);
 
             //Validate token number
-            if (int.TryParse(line[0].Trim(), out tokenNumber))
+            if (int.TryParse(line[0].Trim(), out tokenNumber)) //This validates that the tokenNumber, an identifier to each token read, it's not repeated
             {
                 if (!tokenNumbers.Contains(tokenNumber))
                 {
@@ -469,9 +390,9 @@ namespace ProyectoLFA.Classes
             {
                 if (expression[i] != '=')
                 {
-                    token[0] += expression[i];
+                    token[0] += expression[i]; //joins the expression when it doesn't have "="
                 }
-                else
+                else //Deletes de "=" from the expression and the white space characters
                 {
                     string tmp = "";
 
@@ -480,13 +401,13 @@ namespace ProyectoLFA.Classes
                         tmp += expression[j];
                     }
 
-                    token[1] = removeActionsFromExpression(tmp, ref functionName);
+                    token[1] = removeActionsFromExpression(tmp, ref functionName); //Deletes the actions
                     token[1] = token[1].Trim();
                     break;
                 }
             }
 
-            //Validate token number (just for the reference)
+            //Validate token number
             if (!string.IsNullOrEmpty(functionName))
             {
                 if (int.TryParse(token[0].Trim(), out int tokenNumber))
@@ -545,58 +466,6 @@ namespace ProyectoLFA.Classes
             return text;
         }
 
-        //ACTIONS reader
-        private static void AddActions(string text, ref List<Action> actions)
-        {
-            string[] IndividualActions = text.Split('}');
-
-            foreach (var Actions in IndividualActions)
-            {
-                if (!string.IsNullOrEmpty(Actions))
-                {
-                    Action newAction = new Action();
-
-                    string[] SeparatedValues = Actions.Split('{');
-
-                    string name = SeparatedValues[0];
-                    Dictionary<int, string> tokens = SplitActions(SeparatedValues[1]);
-
-                    newAction.ActionName = name.Replace(" ", "");
-                    newAction.ActionValues = tokens;
-
-                    actions.Add(newAction);
-                }
-            }
-        }
-
-        private static Dictionary<int, string> SplitActions(string setOfTokens)
-        {
-            Dictionary<int, string> ActionValues = new Dictionary<int, string>();
-
-            //Separar actions y numeros. Sus numeros seran pares y el valor sera impar.
-            string newText = setOfTokens.Replace("=", " ");
-            newText = newText.Replace("'", " ");
-            newText = Regex.Replace(newText, @"\s+", " ");
-            newText = newText.Trim();
-
-            string[] tokens = newText.Split();
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (int.TryParse(tokens[i], out int tokenNumber))
-                {
-                    ActionValues.Add(tokenNumber, tokens[i + 1].Replace("'", ""));
-
-                    i++;
-                }
-                else
-                {
-                    throw new Exception("Error al leer ACTIONS");
-                }
-            }
-
-            return ActionValues;
-        }
 
     }
 }

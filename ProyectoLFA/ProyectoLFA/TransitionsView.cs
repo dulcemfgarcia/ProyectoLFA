@@ -69,8 +69,6 @@ namespace ProyectoLFA
 
             DataGridViewColumn column1 = FollowTable.Columns[0];
             DataGridViewColumn column2 = FollowTable.Columns[1];
-            column1.Width = 200;
-            column2.Width = 200;
         }
 
         private void loadTransitions()
