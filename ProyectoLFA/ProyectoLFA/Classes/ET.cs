@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace ProyectoLFA.Classes
 {
-    public class ET:CharSET
+    public class ET : CharSET
     {
         public Node root;
         public string expression;
@@ -53,8 +53,7 @@ namespace ProyectoLFA.Classes
             setLastPos();
         }
 
-        public ET(string expression, Dictionary<string, string[]> sets,
-                                List<Action> actions, List<int> tokenNumbers, Dictionary<int, string> reference)
+        public ET(string expression, Dictionary<string, string[]> sets, List<Action> actions, List<int> tokenNumbers, Dictionary<int, string> reference)
         {
             this.sets = sets;
             this.expression = expression;
@@ -260,7 +259,7 @@ namespace ProyectoLFA.Classes
         private void ShuntingYard(Queue<string> regularExpression)
         {
             //Tokens
-            Stack<string> T = new Stack<string>(); 
+            Stack<string> T = new Stack<string>();
             //Trees
             Stack<Node> S = new Stack<Node>();
 
@@ -273,7 +272,7 @@ namespace ProyectoLFA.Classes
                 //Step 3
                 if (token == Escape)
                 {
-                    if (regularExpression.Count > 0)
+                    if (regularExpression.Count > 0) //Evaluates if the file is not empty after Tokens
                     {
                         token = regularExpression.Dequeue();
                         S.Push(new Node(token, false));
@@ -390,6 +389,7 @@ namespace ProyectoLFA.Classes
             }
         }
 
+        //Evaluates if item is +, * or ?
         private bool isASingleOperationChar(string item)
         {
             string[] SpecialCharacters = { Star, Plus, QuestionMark };
@@ -402,6 +402,7 @@ namespace ProyectoLFA.Classes
             return false;
         }
 
+        //Evaluates if item is | or .
         private bool isABinaryOperationChar(string item)
         {
             string[] SpecialCharacters = { Alternation, Concatenation };
@@ -414,6 +415,7 @@ namespace ProyectoLFA.Classes
             return false;
         }
 
+        //Evaluates if item is an operation(+,*,?,.,|)
         private bool isAnOperationChar(string item)
         {
             if (isABinaryOperationChar(item) || isASingleOperationChar(item))
@@ -424,9 +426,9 @@ namespace ProyectoLFA.Classes
             return false;
         }
 
+        //Verify if item is a character that is used to do an operation like jump, parenthesis, concatenation, etc.
         private bool isATerminalCharacter(string item)
         {
-            //Characters that represent operations
             string[] SpecialCharacters = { Escape, Grouping_Open, Grouping_Close };
 
             if (SpecialCharacters.Contains(item) || isAnOperationChar(item))
@@ -650,6 +652,34 @@ namespace ProyectoLFA.Classes
             }
         }
 
+        public List<string[]> getValuesOfNodes()
+        {
+            //Simbolo, First, Last, Nullable
+            List<string[]> cells = new List<string[]>();
+            int j = 0;
+
+            getValuesOfNodes(root, ref cells, ref j);
+
+            return cells;
+        }
+        private void getValuesOfNodes(Node i, ref List<string[]> cells, ref int j)
+        {
+            if (i.Left != null)
+            {
+                j++;
+                getValuesOfNodes(i.Left, ref cells, ref j);
+            }
+            if (i.Right != null)
+            {
+                j++;
+                getValuesOfNodes(i.Right, ref cells, ref j);
+            }
+
+            cells.Add(new[]
+            {i.expresion, string.Join( ",", i.firstPos),
+                string.Join( ",", i.lastPos), i.nullable.ToString()});
+
+        }
         private void setTokensListOfValues(List<int> TokenNumbers)
         {
             int tmp = 0;
@@ -737,6 +767,7 @@ namespace ProyectoLFA.Classes
                 return 0;
             }
         }
-    }
+    
 
+    }    
 }

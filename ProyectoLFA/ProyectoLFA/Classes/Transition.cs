@@ -8,21 +8,18 @@ namespace ProyectoLFA.Classes
 {
     public class Transition
     {
-        /// <summary>
-        /// Simbolo necesario para acceder a este estado
-        /// </summary>
+        
+        //Symbol to access at the status: terminal symbol
         public string symbol { get; }
         
-        /// <summary>
-        /// Conjunto de follows que conforman este estado (Siguiente estado)
-        /// </summary>
+        
+        //Set of "follows" of the actual status
         public List<int> nodes { get; }
 
+        //When the status has the EndCharcter, the boolean variable is true
         public bool isAcceptanceStatus { get; }
 
-        /// <summary>
-        /// Crea una nueva instancia de la transicion
-        /// </summary>
+        // To create a new transition when follow values of the status is a new set
         public Transition(string simbolo, List<int> nodos)
         {
             symbol = simbolo;

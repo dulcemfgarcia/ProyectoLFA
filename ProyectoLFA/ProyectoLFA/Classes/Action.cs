@@ -7,6 +7,7 @@ namespace ProyectoLFA.Classes
 {
     public class Action
     {
+
         public string ActionName;
         public Dictionary<int, string> ActionValues = new Dictionary<int, string>();
     }

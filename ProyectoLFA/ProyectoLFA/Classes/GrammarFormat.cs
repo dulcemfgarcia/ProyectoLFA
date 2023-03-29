@@ -27,7 +27,7 @@ namespace ProyectoLFA.Classes
         private static string ACTIONSANDERRORS
             = @"^((\s*RESERVADAS\s*\(\s*\)\s*)+|{+\s*|(\s*[0-9]+\s*=\s*'([A-Z]|[a-z]|[0-9])+'\s*)+|}+\s*|(\s*([A-Z]|[a-z]|[0-9])\s*\(\s*\)\s*)+|{+\s*|(\s*[0-9]+\s*=\s*'([A-Z]|[a-z]|[0-9])+'\s*|}+\s)*(\s*ERROR\s*=\s*[0-9]+\s*))$";
 
-        //This are for 2nd fase. When we have the tree. 
+        //This are for 3rd fase. When we have the AFD. 
         private static string expresionSET
             = " *[A-Z]+ *= *((('([A-Z]|[a-z]|[0-9]|[Simbolo])+')|(CHR\\([0-9]+\\)))( *. *. *(('([A-Z]|[a-z]|[0-9]|[Simbolo])+')|(CHR\\([0-9]+\\))))?)+ *" +
               "( *\\+ *((('([A-Z]|[a-z]|[0-9]|[Simbolo])+')|(CHR\\([0-9]+\\)))( *. *. *(('([A-Z]|[a-z]|[0-9]|[Simbolo])+')|(CHR\\([0-9]+\\))))?))* *#";
@@ -41,18 +41,13 @@ namespace ProyectoLFA.Classes
         public static string AnalyseFile(string data, ref int line)
         {
             //It helps changing jumps for spaces and remove all them with "TrimStart" and "TrimEnd"
-            data = data.Replace('\r', ' ');
-            data = data.Replace('\t', ' ');
+            //data = data.Replace('\r', ' ');
+            //data = data.Replace('\t', ' ');
 
-            data = data.TrimStart();
-            data = data.TrimEnd();
-
-            RegularExpression regSET = new RegularExpression(expresionSET);
-            RegularExpression regTOKEN = new RegularExpression(expresionTOKEN);
-            RegularExpression regOTRO = new RegularExpression(expresionACTIONSYERROR);
+            //data = data.TrimStart();
+            //data = data.TrimEnd();
 
             string mensaje = "";
-            string actions = "";
 
 
             bool first = true;

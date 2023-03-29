@@ -13,6 +13,7 @@ namespace ProyectoLFA
 {
     public partial class FileAnalyser : Form
     {
+        ET ExpressionTree = new ET();
         public FileAnalyser()
         {
             InitializeComponent();
@@ -44,6 +45,7 @@ namespace ProyectoLFA
         }
             private void AnalizarArchivo(string file)
             {
+                TransitionBTN.Visible = false;
                 TXTPath.Text = file;
                 RTBGrammar.Select(0, RTBGrammar.Lines.Length);
                 RTBGrammar.SelectionColor = Color.Black;
@@ -56,11 +58,13 @@ namespace ProyectoLFA
                     TResult.Text = Classes.GrammarFormat.AnalyseFile(text, ref line1);
                     RTBGrammar.Text = text;
 
-                if (TResult.Text.Contains("Correcto"))
+                    if (TResult.Text.Contains("Correcto"))
                     {
                         TResult.BackColor = Color.LightGray;
                         TResult.ForeColor = Color.Green;
+                        TransitionBTN.Visible = true;
 
+                        ExpressionTree = Classes.GrammarFormat.GetExpressionTree(RTBGrammar.Text);
                     }
                     else
                     {
@@ -88,6 +92,7 @@ namespace ProyectoLFA
                     TResult.BackColor = Color.LightGray;
                     TResult.ForeColor = Color.Crimson;
                     TResult.Text = @"Error en TOKENS";
+                TransitionBTN.Visible = false;
                     MessageBox.Show(ex.Message);
 
                     //Show in red all lines in tokens
@@ -130,11 +135,18 @@ namespace ProyectoLFA
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            FileAnalyser frm1 = new FileAnalyser();
-
-            frm1.Show();
+            try
+            {
+                FollowTable follows = new FollowTable(ExpressionTree);
+                TransitionT transitions = new TransitionT(follows);
+                TransitionsView tables = new TransitionsView(ExpressionTree, follows, transitions);
+                tables.Show();
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
         }
     }
-    }
+}
 

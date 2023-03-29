@@ -108,13 +108,13 @@ namespace ProyectoLFA.Classes
             return new Transition(symbol, follows);
         }
 
-        /// <summary>
-        /// Check if List of states already contains the new states
-        /// </summary>
+        
+        //Evaluates if the new state already exists
         private bool StateContainsNodes(List<int> nodes)
         {
             foreach (var state in states)
             {
+                //If every element of state is equal to nodes and the amount of elements are the sale, the node it's not a new state
                 if (state.All(nodes.Contains) && state.Count == nodes.Count)
                 {
                     return true;
