@@ -147,6 +147,12 @@ namespace ProyectoLFA
                 MessageBox.Show(exception.Message);
             }
         }
-    }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+
+
+        }   }
 }
+ 
 
