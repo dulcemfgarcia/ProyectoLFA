@@ -11,14 +11,14 @@ namespace ProyectoLFA.Classes
     {
         public FollowTable states;
 
-        public DFA(ExpressionTree tree)
+        public DFA(ET tree)
         {
             states = new FollowTable(tree);
             TransitionT transitionTable = new TransitionT(states);
         }
 
         //todo DFA with sets
-        public DFA(ExpressionTree tree, Dictionary<string, int[]> sets)
+        public DFA(ET tree, Dictionary<string, int[]> sets)
         {
             states = new FollowTable(tree);
             TransitionT transitionTable = new TransitionT(states);
@@ -136,10 +136,10 @@ namespace ProyectoLFA.Classes
                     }
 
                     if (states.nodes[item].character == nextCharacter.ToString() || states.nodes[item].isAcceptanceStatus ||
-                        (states.nodes[item].character == ExpressionCharacters.LetrasMayusculaRegex && char.IsUpper(nextCharacter))
-                        || (states.nodes[item].character == ExpressionCharacters.LetrasMinusculaRegex && char.IsLower(nextCharacter))
-                        || (states.nodes[item].character == ExpressionCharacters.NumerosRegex && char.IsDigit(nextCharacter))
-                        || (states.nodes[item].character == ExpressionCharacters.SimbolosRegex && (char.IsSymbol(nextCharacter) || char.IsPunctuation(nextCharacter))))
+                        (states.nodes[item].character == CharSET.MayusChar&& char.IsUpper(nextCharacter))
+                        || (states.nodes[item].character == CharSET.MinusChar && char.IsLower(nextCharacter))
+                        || (states.nodes[item].character ==     CharSET.Numbers && char.IsDigit(nextCharacter))
+                        || (states.nodes[item].character == CharSET.Symbols && (char.IsSymbol(nextCharacter) || char.IsPunctuation(nextCharacter))))
                     {
                         //Mark flag for later use
                         foundNextValue = true;
