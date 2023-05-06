@@ -1,14 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using ProyectoLFA.Classes;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
-using ProyectoLFA.Classes;
 namespace ProyectoLFA
 {
     public partial class FileAnalyser : Form
@@ -43,64 +37,40 @@ namespace ProyectoLFA
                 MessageBox.Show(@"Error al leer el archivo.");
             }
         }
-            private void AnalizarArchivo(string file)
+        private void AnalizarArchivo(string file)
+        {
+            TransitionBTN.Visible = false;
+            TXTPath.Text = file;
+            RTBGrammar.Select(0, RTBGrammar.Lines.Length);
+            RTBGrammar.SelectionColor = Color.Black;
+
+            try
             {
-                TransitionBTN.Visible = false;
-                TXTPath.Text = file;
-                RTBGrammar.Select(0, RTBGrammar.Lines.Length);
-                RTBGrammar.SelectionColor = Color.Black;
+                int line1 = 0;
+                string text = File.ReadAllText(file);
+                //Send line
+                TResult.Text = Classes.GrammarFormat.AnalyseFile(text, ref line1);
+                RTBGrammar.Text = text;
 
-                try
+                if (TResult.Text.Contains("Correcto"))
                 {
-                    int line1 = 0;
-                    string text = File.ReadAllText(file);
-                    //Send line
-                    TResult.Text = Classes.GrammarFormat.AnalyseFile(text, ref line1);
-                    RTBGrammar.Text = text;
+                    TResult.BackColor = Color.LightGray;
+                    TResult.ForeColor = Color.Green;
+                    TransitionBTN.Visible = true;
 
-                    if (TResult.Text.Contains("Correcto"))
-                    {
-                        TResult.BackColor = Color.LightGray;
-                        TResult.ForeColor = Color.Green;
-                        TransitionBTN.Visible = true;
-
-                        ExpressionTree = Classes.GrammarFormat.GetExpressionTree(RTBGrammar.Text);
-                    }
-                    else
-                    {
-                        TResult.BackColor = Color.LightGray;
-                        TResult.ForeColor = Color.Crimson;
-
-                        //Ubicacion del error
-                        int lineCounter = 0;
-
-                        foreach (string line in RTBGrammar.Lines)
-                        {
-                            if (line1 - 1 == lineCounter)
-                            {
-                                RTBGrammar.Select(RTBGrammar.GetFirstCharIndexFromLine(lineCounter), line.Length);
-                                RTBGrammar.SelectionColor = Color.Red;
-                            }
-                            lineCounter++;
-                        }
-                    }
-
+                    ExpressionTree = Classes.GrammarFormat.GetExpressionTree(RTBGrammar.Text);
                 }
-                catch (Exception ex)
+                else
                 {
-
                     TResult.BackColor = Color.LightGray;
                     TResult.ForeColor = Color.Crimson;
-                    TResult.Text = @"Error en TOKENS";
-                TransitionBTN.Visible = false;
-                    MessageBox.Show(ex.Message);
 
-                    //Show in red all lines in tokens
+                    //Ubicacion del error
                     int lineCounter = 0;
 
                     foreach (string line in RTBGrammar.Lines)
                     {
-                        if (line.Contains("TOKEN"))
+                        if (line1 - 1 == lineCounter)
                         {
                             RTBGrammar.Select(RTBGrammar.GetFirstCharIndexFromLine(lineCounter), line.Length);
                             RTBGrammar.SelectionColor = Color.Red;
@@ -108,7 +78,31 @@ namespace ProyectoLFA
                         lineCounter++;
                     }
                 }
+
             }
+            catch (Exception ex)
+            {
+
+                TResult.BackColor = Color.LightGray;
+                TResult.ForeColor = Color.Crimson;
+                TResult.Text = @"Error en TOKENS";
+                TransitionBTN.Visible = false;
+                MessageBox.Show(ex.Message);
+
+                //Show in red all lines in tokens
+                int lineCounter = 0;
+
+                foreach (string line in RTBGrammar.Lines)
+                {
+                    if (line.Contains("TOKEN"))
+                    {
+                        RTBGrammar.Select(RTBGrammar.GetFirstCharIndexFromLine(lineCounter), line.Length);
+                        RTBGrammar.SelectionColor = Color.Red;
+                    }
+                    lineCounter++;
+                }
+            }
+        }
 
         private void TResult_TextChanged(object sender, EventArgs e)
         {
@@ -142,7 +136,7 @@ namespace ProyectoLFA
                 TransitionsView tables = new TransitionsView(ExpressionTree, follows, transitions);
                 tables.Show();
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
@@ -152,7 +146,8 @@ namespace ProyectoLFA
         {
 
 
-        }   }
+        }
+    }
 }
- 
+
 
