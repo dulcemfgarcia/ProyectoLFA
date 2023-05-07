@@ -53,7 +53,7 @@ namespace ProyectoLFA
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label1.Location = new System.Drawing.Point(64, 127);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(554, 54);
+            this.label1.Size = new System.Drawing.Size(544, 53);
             this.label1.TabIndex = 1;
             this.label1.Text = "GENERADOR DE SCANNER";
             // 
@@ -80,6 +80,7 @@ namespace ProyectoLFA
             this.Controls.Add(this.button1);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

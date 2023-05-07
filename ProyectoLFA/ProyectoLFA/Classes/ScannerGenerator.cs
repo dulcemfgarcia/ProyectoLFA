@@ -10,12 +10,14 @@ namespace ProyectoLFA.Classes
 {
     class ScannerGenerator
     {
-        public static string GetSourceCode(ET tree)
+        public static string[] GetSourceCode(ET tree)
         {
             DFA automata = new DFA(tree);
             TransitionT transitions = new TransitionT(automata.states);
 
             string sourceCode = Classes.Resource1.Program;
+            string LineasdeCodigo = Classes.Resource1.Final;
+
 
             //GetValues
             string TitleColor = getColor();
@@ -35,17 +37,26 @@ namespace ProyectoLFA.Classes
             sourceCode = sourceCode.Replace("</States>", States);
             sourceCode = sourceCode.Replace("</Aceptacion>", Estados_Aceptacion);
 
-            return sourceCode;
+            LineasdeCodigo = LineasdeCodigo.Replace("</TitleColor>", TitleColor);
+            LineasdeCodigo = LineasdeCodigo.Replace("</FirstPos>", Character_Token_First);
+            LineasdeCodigo = LineasdeCodigo.Replace("</LastPos>", Character_Token_Last);
+            LineasdeCodigo = LineasdeCodigo.Replace("</Reservadas>", Reservadas_Values);
+            LineasdeCodigo = LineasdeCodigo.Replace("</Referencias>", TokensConReferencia);
+            LineasdeCodigo = LineasdeCodigo.Replace("</States>", States);
+            LineasdeCodigo = LineasdeCodigo.Replace("</Aceptacion>", Estados_Aceptacion);
+
+            string[] miArray = new string[] {sourceCode, LineasdeCodigo};
+
+            return miArray;
         }
 
         private static string getColor()
         {
             List<string> colors = new List<string>
             {
-                "ConsoleColor.Magenta", "ConsoleColor.Cyan",
-                "ConsoleColor.Yellow", "ConsoleColor.Green"
+                "ConsoleColor.Blue", "ConsoleColor.DarkCyan",
+                "ConsoleColor.Black", "ConsoleColor.Blue"
             };
-
             var random = new Random();
             int index = random.Next(colors.Count);
 
@@ -219,7 +230,6 @@ namespace ProyectoLFA.Classes
 
             // 4
             // Add each key's frequency from collection B to the Dictionary
-            // Return early if we detect a mismatch
             foreach (T item in b)
             {
                 int c;
@@ -381,7 +391,6 @@ namespace ProyectoLFA.Classes
                 //break actual state
                 actualCase += $"break;\r\n";
 
-                //Add spaces to look nice
                 actualCase = actualCase.Replace("\r\n", "\r\n                        ");
 
                 output += actualCase;

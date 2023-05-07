@@ -15,6 +15,9 @@ namespace ProyectoLFA.Classes
         public Dictionary<string, string[]> sets = new Dictionary<string, string[]>();
         public List<Token> tokens = new List<Token>();
         private readonly Dictionary<int, string> leafNodeValues = new Dictionary<int, string>();
+        public List<Action> actions = new List<Action>();
+        public Dictionary<int, string> actionReference = new Dictionary<int, string>();
+
         public ET()
         {
             root = null;
